@@ -1,8 +1,9 @@
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, UniqueConstraint
 from .db import Base
 
 class OHLCV(Base):
     __tablename__ = "ohlcv"
+    __table_args__ = (UniqueConstraint("ticker", "date", name="uq_ticker_date"),)
 
     id = Column(Integer, primary_key=True)
     ticker = Column(String, index=True, nullable=False)
